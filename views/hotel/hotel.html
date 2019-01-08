@@ -1,0 +1,118 @@
+<div class="hotel-invoice" ng-controller="hotelCtrl">
+  <div class="page" ng-repeat="dayTot in roomDetails.dayTotal track by $index">
+<div class="row">
+  <div class="hotelLogo col-md-3"><img class="img-responsive" style="width:200px" src="{{hotelDetails.logoUrl}}" /></div>
+  <div class="col-md-6 text-center">
+    <h1 class="text-uppercase">{{hotelDetails.name}}</h1>
+    <p class="text-center"><strong>A delightful alternative to hotel !</strong></p>
+    {{hotelDetails.address}}, {{hotelDetails.city}}, {{hotelDetails.state}} {{hotelDetails.pincode}}
+    <div>Tel: {{hotelDetails.phone[0]}} Email: {{hotelDetails.email}} <br /> Web: {{hotelDetails.website}}
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+
+<table class="table well">
+<tr><td style="width:33%">GST: <strong>{{hotelDetails.GST}}</strong></td><td class="text-center" style="width:33%"><strong>Tax Invoice</strong></td><td class="text-right" style="width:33%">PLEASE DEPOSIT YOUR ROOM KEY CARD.</td></tr>
+</table>
+
+
+<table class="table">
+<tr><td><div><strong>Guest Name : Mr. {{customerDetails.name}}</strong><div>
+<div><strong>Guest Address</strong> : {{customerDetails.address}} &#160; <br /><strong>City</strong> : {{customerDetails.city}} &#160;
+<strong>Pin</strong> : {{customerDetails.pin}} &#160;
+<strong>State</strong> : {{customerDetails.state}} &#160;
+<strong>Country</strong> : {{customerDetails.country}}  </div>
+<div>Arrival Date : {{customerDetails.arrivalDate | date}}</div>
+<div>Arrival Time : {{customerDetails.arrivalTime}}</div>
+<div>Departure Date : {{customerDetails.departureDate | date}}</div>
+<div>Departure Time : {{customerDetails.departureTime}}</div>
+<div>Number of Nights : {{customerDetails.numberOfNights}}</div>
+<div>Number of Guests / Child : {{customerDetails.numberOfGuests}}</div>
+<div></div>
+
+</td>
+<td><div>Room Type : <strong>{{roomDetails.roomType}}</strong> </div>
+<div>Room # : <strong>{{roomDetails.roomNo.toString()}}</strong></div>
+<div>Number of Rooms : <strong>{{roomDetails.roomNo.length}}</strong></div>
+<div>REG. NO. : <strong>65437</strong></div>
+<div>BILL NO. : <strong>{{67767}}</strong></div>
+<div>DATE : <strong>{{customerDetails.departureDate | date}}</strong></div>
+<div>PAGE No. : <strong>{{$index + 1}}</strong></div>
+<div><strong></strong></div>
+<div><strong></strong></div>
+<div><strong></strong></div>
+<div><strong></strong></div>
+</td>
+</tr>
+</table>
+<table class="table">
+<tr>
+<th>DATE</th><th>ROOM NO.</th><th>DESCRIPTION</th><th class="text-right">DEBIT RS.</th><th class="text-right">CREDIT RS.</th>
+<th class="text-right">BALANCE RS.</th></tr>
+</table>
+<table class="day-table table">
+<tr ng-repeat="roomNumbers in roomDetails.roomNo track by $index">
+  <td>{{customerDetails.arrivalDate.getDate()+ $parent.$index}}/{{customerDetails.arrivalDate.getMonth() + 1}}/{{customerDetails.arrivalDate.getFullYear()}} </td>
+  <td>{{roomDetails.roomNo[$index]}}</td>
+  <td>
+    <div>Tarrif</div>
+    <div>Central GST  {{roomDetails.centralGSTPercentage | number:1}} %</div>
+    <div>State GST {{roomDetails.stateGSTPercentage | number:1}} %</div>
+    <div>Luxury Tax {{roomDetails.luxuryTaxPercentage | number:1}} %</div>
+    <div>Service Tax {{roomDetails.serviceTaxPercentage | number:1}} %</div>
+    <div>Swachh Bharat Chess {{roomDetails.swachhBharatChessPercentage | number:1}} %</div>
+    <div ng-if="roomDetails.roomNo.length>0" class="room-total">ROOM TOTAL</div>
+  </td>
+  <td class="text-right">
+    <div>{{roomDetails.tarrif | number:2}}</div>
+    <div>{{roomDetails.centralGST | number:2}}</div>
+    <div>{{roomDetails.stateGST | number:2}}</div>
+        <div>{{roomDetails.luxuryTax | number:2}}</div>
+            <div>{{roomDetails.serviceTax | number:2}}</div>
+                <div>{{roomDetails.swachhBharatChess | number:2}}</div>
+    <div ng-if="roomDetails.roomNo.length>0" class="room-total">{{roomDetails.roomTotal[$index] | number:2}}</div>
+  </td>
+  <td class="text-right">
+  </td>
+  <td class="text-right">
+    <div class="room-total">{{roomDetails.roomTotal[$index] | number:2}}</div>
+  </td>
+</tr>
+<tr><td></td><td></td><td><strong>Day Total</strong></td><td></td><td></td><td class="text-right"><strong>{{roomDetails.dayTotal[$index] | number:2}}</strong></td></tr>
+
+<tr ng-if="roomDetails.dayTotal.length - 1==$index"><td></td><td></td><td><strong>GRAND TOTAL</strong></td><td></td><td></td><td class="text-right"><strong>{{roomDetails.grandTotal | number:2}}</strong></td></tr>
+</table>
+<div class="row col-md-12"> >> Bill are due on presentation regardless of charge instructions. I agree to be held personally liable for payment of the total amount of this bill.
+</div>
+<div class="row" style="padding-top:100px; margin-padding: 100px;">
+<div class="col-md-6">Cashier: PRASHANT P</div><div class="col-md-6 text-right"><strong>Guest Signature: </strong></div>
+</div>
+
+<table class="table" style="margin:40px 0">
+<tr><td>PAN : AABCR0111N</td><td><strong>VAT: 27410629786V</strong></td><td>TAN : PNER09431C</td></tr>
+</table>
+
+<div class="row col-md-12">
+<strong>>> If you find any discrepancies please intimate us within a week. Subject to {{hotelDetails.state}} Jurisdiction.</strong>
+</div>
+<div class="pagebreak"></div>
+</div>
+
+
+
+
+
+</div>
+<style>
+.room-total{
+    vertical-align: bottom;
+    bottom: 0;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  @media print{
+  .pagebreak { page-break-before: always; }
+}
+</style>

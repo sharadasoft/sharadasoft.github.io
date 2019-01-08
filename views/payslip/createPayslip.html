@@ -1,0 +1,271 @@
+<style>
+  .payslip table.header-table, .payslip table.header-table td, .payslip table.header-table th {
+    border: none !important;
+    background: none !important;
+    text-align: left;
+  }
+  .payslip .title{ text-align: center; font-weight: bold; margin: 20px 0;}
+  .payslip .table th, .payslip .table td {border: 1px solid #000 !important;} 
+  .payslip .table th{
+    background-color: #e1e1e1;
+  }
+  .payslip table td{
+    background-color: #ded9c3;
+    text-align: right;
+  }
+</style>
+
+<div class="payslip" data-ng-controller="createPayslipCtrl">
+  <form class="form-horizontal" name="payslip">
+
+    <header class="header">
+      <table class="table header-table">
+        <tr class="form-group">
+          <td>
+            <input type="url" class="form-control" id="logo" name="logo" ng-model="company.logo" />
+          </td>
+          <td>
+            <input type="text" class="form-control" id="companyName" name="companyName" ng-model="company.name" /><br/>
+            <input type="text" class="form-control" id="companyAddress" name="companyAddress" ng-model="company.branches[0].location.address"/><br/>
+            <input type="text" class="form-control" id="companyCity" name="companyCity" ng-model="company.branches[0].location.city"/><br/> 
+            <input type="text" class="form-control" id="companyAddress" name="companyAddress" ng-model="company.branches[0].location.state"/><br/>
+            <input type="text" class="form-control" id="companyAddress" name="companyAddress" ng-model="company.branches[0].location.country"/><br/>
+            <input type="text" class="form-control" id="companyAddress" name="companyAddress" ng-model="company.branches[0].location.pin"/>
+          </td>
+        </tr>
+      </table>
+
+    </header>
+
+    <p class="title">Pay slip for the month of 
+      <select class="" data-ng-model="employee.paySlip.month" ng-options="option.month as option.month for option in months" required>
+        <option value="" selected>Choose Month...</option>
+      </select> 
+      <select class="" data-ng-model="employee.paySlip.year" ng-options="option as option for option in years" required>
+        <option value="" selected>Choose Year...</option>
+      </select>
+    </p>
+
+    <table class="table emp-info">
+      <tr class="form-group">
+        <th>    
+          <label for="empId" class="control-label">Employee Id</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="empId" name="empId" ng-model="employee.empId" placeholder="Employee Id" required />
+        </td>
+        <th>    
+          <label for="fname" class="control-label">Employee Name</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="fname" name="fname" ng-model="employee.name.fname" placeholder="First Name" required />
+          <input type="text" class="form-control" id="lname" name="lname" ng-model="employee.name.lname" placeholder="Last Name" required />
+        </td>
+      </tr>
+
+      <tr class="form-group">
+        <th>    
+          <label for="designation" class="control-label">Designation</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="designation" name="designation" ng-model="employee.designation" placeholder="Designation" required />
+        </td>
+        <th>    
+          <label for="level" class="control-label">Level</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="level" name="level" ng-model="employee.level" placeholder="Level" required />
+        </td>
+      </tr>
+
+      <tr class="form-group">
+        <th>    
+          <label for="panNumber" class="control-label">PAN Number</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="panNumber" name="panNumber" ng-model="employee.panNumber" placeholder="PAN Number" required />
+        </td>
+        <th>    
+          <label for="bankName" class="control-label">Payment Details</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="bankName" name="bankName" ng-model="employee.accountDetails.bankName" placeholder="Bank Name" required />
+          <input type="text" class="form-control" id="accountNumber" ng-model="employee.accountDetails.accountNumber" placeholder="Account Number" required />
+        </td>
+      </tr>
+
+
+      <tr class="form-group">
+        <th>    
+          <label for="workingdays" class="control-label">Working Days</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="workingDays" name="workingDays" ng-model="employee.workingDays" placeholder="Woring Days" required />
+        </td>
+        <th>    
+          <label for="lop" class="control-label">L O P days</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="lop" name="lop" ng-model="employee.lop" placeholder="L O P days" required />
+        </td>
+      </tr>
+
+      <tr class="form-group">
+        <th>    
+          <label for="onsiteDays" class="control-label">Onsite Days</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="onsiteDays" name="onsiteDays" ng-model="employee.onsiteDays" placeholder="Onsite Days" required />
+        </td>
+        <th>    
+          <label for="providentFundNumber" class="control-label">PF A/C Number</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="providentFundNumber" name="providentFundNumber" ng-model="employee.providentFundNumber" placeholder="PF A/C Number " required />
+        </td>
+      </tr>
+
+    </table>
+
+
+    <table class="table">
+      <tr class="form-group">
+        <th>    
+          <label for="ctc" class="control-label">CTC</label>
+        </th>
+        <td>
+          <input type="text" class="form-control" id="ctc" name="ctc" ng-model="employee.ctc" placeholder="CTC" />
+        </td>
+      </tr>
+    </table>
+
+    <div class="row">  
+      <div class="col-md-6 col-lg-6">
+        
+        <table class="table salary-details">
+          <tr>
+            <th class="column-heading text-center">Earnings</th>
+            <td class="column-heading"><strong>Amount in Rs.</strong></td>
+          </tr> 
+          <tr>
+            <th>Basic</th>
+            <td>{{employee.earnings.basic | number:0}}</td>
+          </tr>
+          <tr>
+            <th>HRA</th>
+            <td>{{employee.earnings.hra | number:0}}</td>
+          </tr>
+
+          <tr>
+            <th>Medical Allowance</th>
+            <td>{{employee.earnings.medicalAllowance | number:0}}</td>
+          </tr>
+
+          <tr>
+            <th>Conveyance Allowance</th>
+            <td>{{employee.earnings.conveyanceAllowance| number:0}}</td>
+          </tr>
+
+          <tr>
+            <th>Special Allowance</th>
+            <td>{{employee.earnings.specialAllowance| number:0}}</td>
+          </tr>
+          <tr>
+            <th>LTA(monthly)</th>
+            <td>{{employee.earnings.leaveTravelAllowance | number:0}}</td>
+          </tr>
+          <tr>
+            <th class="column-heading text-center">Gross Total</th>
+            <td><strong>{{employee.earnings.grossTotal | number:0}}</strong></td>
+          </tr>
+
+        </table>
+
+      </div>
+      <div class="col-md-6 col-lg-6">
+        
+        <table class="table">
+          <tr>
+            <th class="column-heading text-center">Decuctions</th>
+            <td class="column-heading"><strong>Amount in Rs.</strong></td>
+          </tr>
+          <tr>
+            <th>Provident Fund</th>
+            <td>{{employee.deductions.providentFund | number:0}}</td>
+          </tr>
+          <tr>
+            <th>Prof. Tax</th>
+            <td>{{employee.deductions.professionalTax | number:0}}</td>
+          </tr>
+          <tr>
+            <th>TDS</th>
+            <td>{{employee.deductions.TDS | number:0}}</td>
+          </tr>
+          <tr>
+            <th>Other's</th>
+            <td>{{employee.deductions.other | number:0}}</td>
+          </tr>
+          <tr>
+            <th>Loan Installment</th>
+            <td>{{employee.deductions.loanInstallment | number:0}}</td>
+          </tr>
+          <tr>
+            <th>&nbsp;</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th class="text-center">Sub Total</th>
+            <td><strong>{{employee.deductions.subTotal | number:0}}</strong></td>
+          </tr>
+        </table>  
+      </div>
+
+      <div class="container">
+        <p>Loan Details as on date</p>
+        <table class="table">
+          <tr>
+            <th>Loan Taken</th>
+            <td>0</td>
+            <th>Repaid</th>
+            <td>0</td>
+            <th>Balance</th>
+            <td>0</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="container">
+        <p>Summary of Pay</p>
+        <table class="table">
+          <tr>
+            <th class="text-center">Gross Pay</th>
+            <th class="text-center">Total Deductions</th>
+            <th class="text-center">Net Pay Credited</th>
+          </tr>
+          <tr>
+            <td class="text-center"><strong>{{employee.earnings.grossTotal | number:0}}</strong></td>
+            <td class="text-center"><strong>{{employee.deductions.subTotal | number:0}}</strong></td>
+            <td class="text-center"><strong>{{employee.netPay | number:0}}</strong></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="container">
+        <p>Addl. Details if any</p>
+        <table class="table">
+          <tr>
+            <th>&nbsp;</th>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+
+      <footer class="container">
+        <p>This document contains confidential information. If you are not the intended recipient you are not authorized to use or disclose it in any form. If you received this in error please distroy it along with any copies and notify the sender immediately.</p>
+      </footer>
+
+<!-- 
+  <div class="pull-right"><button class="btn btn-default" ui-sref="viewpayslip({})">Create Payslip</button></div> -->
+
+</div>

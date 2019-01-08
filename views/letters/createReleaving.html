@@ -1,0 +1,39 @@
+<div data-ng-controller="contactFormCtrl">
+<form class="form-horizontal" name="contactus">
+  <div class="form-group">
+    <label for="name" class="col-sm-2 control-label">Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="name" name="name" ng-model="contact.name" placeholder="Name" required />
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="email" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="email" name="email" ng-model="contact.email" placeholder="Email" required />
+    </div>
+  </div>
+ 
+ <div class="form-group">
+    <label for="phone" class="col-sm-2 control-label">Phone</label>
+    <div class="col-sm-10">
+      <input type="tel" class="form-control" id="phone" name="phone" ng-model="contact.phone" placeholder="Phone" required />
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="message" class="col-sm-2 control-label">Message</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" id="message" name="message" ng-model="contact.message" placeholder="Message" required />
+    </div>
+  </div>
+  
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary" ng-disabled="contactus.$invalid || contactus.$pending" ng-click="submitQuery(contact)">Submit</button>
+    </div>
+  </div>
+</form>
+
+</div>

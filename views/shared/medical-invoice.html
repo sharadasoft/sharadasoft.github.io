@@ -1,0 +1,99 @@
+<div class="container">
+<h2>{{medical.name}}</h2>
+<div class="table-responsive">
+  <table class="table" style="width:100%">
+    <tbody>
+      <tr>
+        <td>
+          Address:{{medical.address}}<br/> Phone:{{medical.phone}}
+        </td>
+        <td>GST:</td>
+        <td class="text-right">
+          {{medical.dlNo1}}<br/> {{medical.dlNo2}}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          To: {{medical.to}}<br/> {{medical.dr}}.
+        </td>
+        <td> GST:<br> DL Nos:<br> Phone: {{medical.phone}}<br> AADHAR:
+        </td>
+        <td class="text-right" style="font-size: 18px;">
+          <div><strong>TAX INVOICE<br>
+			         No:<span style="text-transform: uppercase;"> {{medical.taxInvoice}}<span><br>
+			         Date:{{ medical.date | date : short }}
+		           </strong>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr>
+
+<div class="table-responsive" style="min-height:450px;">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Product Name</th>
+        <th>HSNCODE</th>
+        <th>Strip/Unit</th>
+        <th class="text-right">MRP</th>
+        <th class="text-right">QTY</th>
+        <th class="text-right">RATE</th>
+        <th class="text-right">GST</th>
+        <th class="text-right">DISC</th>
+        <th class="text-right">AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in medicenes">
+        <td>{{$index+1}}</td>
+        <td>{{row[1]}}</td>
+        <td>{{row[0]}}</td>
+        <td>{{row[2]}}</td>
+        <td class="text-right">{{row[3]}}</td>
+        <td class="text-right">{{qty[$index]}}</td>
+        <td class="text-right">{{rate[$index] | number : 2}}</td>
+        <td class="text-right">{{gst[$index] | number : 2}}</td>
+        <td class="text-right">{{disc[$index] | number : 2}}</td>
+        <td class="text-right">{{amt[$index] | number : 2}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<div class="pull-left">
+
+The goods supplied in this invoice do not contravene section 18 of the drugs and cosmetics act 1940.<br />
+Subject to Hyderabad Jurisdiction. E & O.E <br />
+Goods once sold cannot be taken back.
+
+</div>
+
+<table class="pull-right">
+  <tr>
+    <th>Rate</th>
+    <td>:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td class="text-right">{{totalRate | number : 2}}</td>
+  </tr>
+  <tr>
+    <th>GST</th>
+    <td>:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td class="text-right">{{totalGst | number : 2}}</td>
+  </tr>
+  <tr>
+    <th>Disc</th>
+    <td>:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td class="text-right">{{totalDisc | number : 2}}</td>
+  </tr>
+  <tr>
+    <th>Amount</th>
+    <td>:&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td class="text-right"><strong>{{totalAmt | number : 2}}<strong></td></tr>
+</table>
+</div>
+<div class="pagebreak"></div>

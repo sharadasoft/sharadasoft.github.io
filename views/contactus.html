@@ -1,0 +1,23 @@
+<section class="row" style="margin-top: 20px;">
+<div class="col-md-6">
+<h1>Contact Us.
+<small> </small>
+</h1>
+	Looking for a job? Have a Business or Press inquiry? May be just want to say "Hi". Let us know what you need and we will knock ourselves out to get you what you are looking for.
+</div>
+<div ui-view="contactForm" class="col-md-6"></div>
+<div class="clearfix" />
+
+<div class="col-md-4" ng-repeat="branch in company.branches">
+		<h3>{{branch.location.city}}, {{branch.location.country}}</h3>
+          <div>Address: {{branch.location.address}} </div>
+          <div>City: {{branch.location.city}}</div>
+          <div>State: {{branch.location.state}}</div>
+          <div>Country: {{branch.location.country}}</div>
+          <div>Pincode: {{branch.location.pin}}</div>
+          <div>Email: <a href="mailto:{{branch.email}}">{{branch.email}}</a></div>
+          <div>Mobile:{{branch.mobile}}</div>
+          <div>Phone:{{branch.phone}}</div>
+</div>
+
+</section>

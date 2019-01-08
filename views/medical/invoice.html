@@ -1,0 +1,178 @@
+<style>
+
+@media print{
+.pagebreak { page-break-before: always; }
+
+#store0{
+font-family: 'Bookman Old Style',Bookman,'URW Bookman L',serif;
+color: blue;
+}
+#store1{
+font-family: Arial,Helmet,Freesans,sans-serif;
+color: blue;
+}
+#store2{
+font-family: 'Arial Narrow','Nimbus Sans L',sans-serif;
+color: blue;
+}
+#store3{
+font-family: 'Bookman Old Style',Bookman,'URW Bookman L',serif;
+color: blue;
+}
+#store4{
+	font-family: 'Century Gothic',Futura,'URW Gothic L',sans-serif;
+	color: blue;
+	}
+
+#store5{
+	font-family: 'Comic Sans MS',cursive;
+	color: blue;
+	}
+
+#store6{
+	font-family: 'Courier New',Courier,Freemono,'Nimbus Mono L',monospace;
+	color: blue;
+	}
+
+#store7{
+	font-family: Constantina,Georgia,'Nimbus Roman No9 L',serif;
+	color: blue;
+	}
+
+#store8{
+	font-family: Consolas,'Lucida Console','Bitstream VeraSans Mono','DejaVu Sans Mono',monospace;
+	color: blue;
+	}
+
+#store9{
+
+	font-family: 'Lucida Sans Unicode','Lucida Grande','Lucida Sans','DejaVu Sans Condensed',sans-serif;
+	color: blue;
+	}
+
+#store10{
+	font-family: Cambria,'Palatino Linotype','Book Antiqua','URW Palladio L',serif;
+	color: blue;
+	}
+
+#store11{
+	font-family: Consolas,'Lucida Console','Bitstream VeraSans Mono','DejaVu Sans Mono',monospace;
+	color: blue;
+	}
+
+#store12{
+font-family: Cambria,'Times New Roman','Nimbus Roman No9 L','Freeserif',Times,serif;
+color: blue;
+}
+
+#store13{
+font-family: Verdana,Geneva,'Bitstream Vera Sans','DejaVu Sans',sans-serif;
+color: blue;
+}
+
+#store14{
+
+font-family: 'Helvetica Neue',Arial,'Liberation Sans',FreeSans,sans-serif;
+color: blue;
+}
+
+#store15{
+font-family: Arial, Helvetica, sans-serif;
+color: blue;
+}
+
+#store16{
+font-family: Verdana,Geneva,'Bitstream Vera Sans','DejaVu Sans',sans-serif;
+color: blue;
+}
+
+#store17{
+font-family: 'Bookman Old Style', serif;
+color: blue;
+}
+
+#store18{
+font-family: 'Comic Sans MS', cursive;
+color: blue;
+}
+
+#store19{
+font-family: 'Courier New', Courier, monospace;
+color: blue;
+}
+
+#store20{
+font-family: Garamond, serif;
+color: blue;
+}
+
+#store21{
+font-family: Georgia, serif;
+color: blue;
+}
+
+#store22{
+font-family: Impact, Charcoal, sans-serif;
+color: blue;
+}
+
+#store23{
+font-family: 'Lucida Console', Monaco, monospace;
+color: blue;
+}
+
+#store24{
+font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+color: blue;
+}
+
+#store25{
+font-family: 'MS Sans Serif', Geneva, sans-serif; /* bitmap */
+color: blue;
+}
+
+#store26{
+font-family: 'MS Serif', 'New York', serif; /* bitmap */
+color: blue;
+}
+
+#store27{
+font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+color: blue;
+}
+
+#store28{
+font-family: Symbol, sans-serif;
+color: blue;
+}
+
+#store29{
+font-family: Tahoma, Geneva, sans-serif;
+color: blue;
+}
+
+#store30{
+font-family: 'Times New Roman', Times, serif;
+color: blue;
+}
+
+#store31{
+font-family: 'Trebuchet MS', Helvetica, sans-serif;
+color: blue;
+}
+
+#store32{
+font-family: Verdana, Geneva, sans-serif;
+color: blue;
+}
+
+#store33{
+font-family: Webdings, sans-serif;
+color: blue;
+}
+}
+
+</style>
+<div class="container" ng-controller="medicalCtrl">
+	<medical-invoice ng-repeat="details in shop" medical="{{details}}" id="store{{$index}}"></medical-invoice>
+</div>

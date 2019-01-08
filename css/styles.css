@@ -1,0 +1,69 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin top by header height */
+  margin-top: 50px;
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  background: url("images/body-background.png");
+}
+
+.app-header .navbar-default{
+  border-top: 3px solid #fdda24;
+
+}
+img.logo{
+  margin-top: -4px;
+}
+.s1{
+color: #FF8C00;
+}
+.s2{
+  color: #035c27;
+}
+.s3{
+color: #285e94;
+}
+
+#navbar .nav li.active a{
+  background: #FF8C00;
+  color: #fff;
+}
+.navbar-brand, .company-name
+{
+  font-family: "Fjalla One";
+  font-style: small-caps;
+  font-size: 1.8em;
+}
+
+.slide-text-0, .slide-text-1, .slide-text-2, .slide-text-3, .slide-text-4{
+  color: #5D25A0;
+  font-size: 36px;
+  font-family: "Averia Sans Libre";
+  text-align: left;
+  text-transform: uppercase;
+  float: left;
+  position: absolute;
+  top: -180px;
+  left: -100px;
+}
+.slide-text-0{
+  color: #F8485E !important;
+}
+
+.slide-text-3{
+  color: #fff !important;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  border-top: 5px solid #fdda24;
+  background-color: #2d2d2d;
+  padding-top:15px; 
+}

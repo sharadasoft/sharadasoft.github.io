@@ -1,0 +1,176 @@
+<div ng-controller="playStationCtrl">
+
+<style type="text/css">
+	
+	.timeFinished{
+		background-color: red;
+	}
+	.time-details span.hideinvoiceDetails{
+		display: none;
+		position: absolute;
+	}
+	.time-details:hover span.hideinvoiceDetails{
+		display: block;
+	}
+</style>
+
+<div class="row">
+<div class="pull-right">
+<button class="btn btn-xs btn-primary" ng-click="cleanSystems()">Clean Systems</button>
+</div>
+
+<table class="table">
+	<thead>
+	<tr>
+		<th>Sys</th>
+		<th>Name</th>
+		<th>Members</th>
+		<th>Duration</th>
+		<th>Start Time</th>
+		<th>End Time</th>		
+		<th>Amt</th>
+	</tr>
+	</thead>
+	<tbody>
+
+	<tr ng-repeat="system in systems" id="sys{{$index}}" ng-class="{'timeFinished': system.timeFinish}">
+	<td>
+		<span class="pull-left">{{system.systemNumber}}</span>
+		<audio id="play{{$index}}" class="audio_volume_only" style="width:35px" src="http://www.soundjay.com/button/beep-07.wav" loop="false" play="{{system.timeFinish}}"></audio>
+	</td>
+	<td>
+<div>
+	<input type="text" ng-model="system.customer.name" ng-keyup="enableStart($index)" id="customerName{{$index}}" ng-disabled="system.customer.disable" class="form-control" />
+</div>
+<div class="row">
+	<div class="col-md-12">
+<button id="start{{$index}}" class="btn btn-xs btn-primary"  ng-disabled="system.startBtn.disable" ng-if="system.startBtn.show" ng-click="start($index)">Start</button>
+		<button id="edit{{$index}}" class="btn btn-xs btn-primary" ng-disabled="system.editBtn.disable" ng-if="system.editBtn.show" ng-click="edit($index)">Edit</button>
+		<button class="btn btn-xs btn-primary" ng-if="system.updateBtn.show" ng-click="update($index)">Update</button>
+		<button class="btn btn-xs btn-primary" ng-if="system.cancelBtn.show" ng-click="cancel($index)">Cancel</button>
+		<button id="continue{{$index}}" class="btn btn-xs btn-primary" ng-if="system.continueBtn.show" ng-click="continue($index)">Continue</button>
+		</div>
+</div>
+	</td>
+	<td>
+	<div>
+	<select id="members{{$index}}" name="memberCount{{$index}}" class="form-control" ng-model="system.members.count" ng-change="enableStart($index)" ng-disabled="system.members.disable">
+			<option ng-repeat="option in membersList" value="{{option.value}}" ng-selected="system.members.count==option.value">{{option.key}}</option>
+ 		</select>
+</div>
+<div class="row">
+	<div class="col-md-12">
+
+ 		<button id="stop{{$index}}" class="btn btn-xs btn-primary" ng-disabled="system.stopBtn.disable" ng-if="system.stopBtn.show" ng-click="stop($index)">Stop</button>
+
+ 					<button class="btn btn-xs btn-primary" id="cancelGameBtn{{$index}}" ng-if="system.cancelGameBtn.show" ng-click="cancelGame($index)" title="Cancel Game">Cancel Game</button>
+
+ 		</div>
+</div>
+	</td>
+	<td>
+
+		<select ng-model="system.duration.hours" ng-change="enableStart($index)" ng-disabled="system.duration.disable" id="duration{{$index}}" class="form-control">
+			<option ng-repeat="option in durationsList" ng-selected="system.duration.hours==option.value" value="{{option.value}}">{{option.key}}</option>
+		</select>
+		</td>
+		<td class="time-details">
+		<div id="editStartTimePanel{{$index}}" ng-if="system.editStartTimePanel.show">
+				<uib-timepicker ng-model="system.startTime.value" id=editStartTime{{$index}}></uib-timepicker>
+		</div>
+		<div id="displayStartTimePanel{{$index}}" ng-if="!system.editStartTimePanel.show">{{system.startTime.value | date: 'h:mm a'}} 
+		</div>
+		</td>
+		<td>{{system.endTime.value | date: 'h:mm a'}}</td>
+
+		<td class="time-details">{{system.amount}}
+				<span class="hideinvoiceDetails" ng-if="system.invoiceDetails.length">
+						<table class="table">
+						<thead><tr><th>Mem</th><th>Dur</th><th>Min</th><th>Amt</th></tr></thead>
+						<tr ng-repeat="invoice in system.invoiceDetails">
+						<td>{{invoice.mem}}</td><td>{{invoice.duration.st | date: 'h:mm a'}} - {{invoice.duration.et | date: 'h:mm a'}}</td><td>{{invoice.mins}}</td><td>{{invoice.amt}}</td>
+						</tr>
+						</table>
+				</span>
+
+		</td>
+	</tr>
+	</tbody>
+</table>
+</div>
+
+<!-- <div class="row">
+<h4>Add Waiting Customer</h4>
+<table class="table">
+	<tr>
+		<td>
+			<input type="text" ng-model="waiting.customer" id="waitingCustomer" class="form-control"/>
+		</td>
+	<td><select ng-model="waiting.members" id="waitingMembers{{$index}}" class="form-control">
+			<option value="">Members</option>
+			<option ng-repeat="option in membersList" value="{{option.value}}">{{option.key}}</option>
+		</select>
+	</td>
+	<td>
+
+		<select ng-model="waiting.duration" id="waitingDuration{{$index}}" class="form-control">
+			<option value="">Hours</option>
+			<option ng-repeat="option in durationsList" value="{{option.value}}">{{option.key}}</option>
+		</select>
+		</td>
+		<td>
+			<input type="button" id="wait" class="btn btn-xs btn-primary" value="Wait" ng-disabledd="enableWait()" ng-click="wait()" />
+		</td>
+	</tr>
+</table>
+<table class="table">
+	<tr ng-repeat="cust in waitList track by $index">
+	<td>{{cust.customerName}}</td>
+	<td>{{cust.members}}</td>
+	<td>{{cust.duration}}</td>
+	<td>
+		<select id="waitingSysNumber{{$index}}" ng-model="cust.availableSysNumber" class="form-control">
+			<option value="">Assign System</option>
+			<option ng-repeat="option in systems" value="{{option.systemNumber}}" ng-if="!option.status">Sys #{{option.systemNumber}}</option>
+		 </select>
+
+	</td>
+	<td>
+		<input type="button" class="btn btn-xs btn-primary" id="remove{{$index}}" ng-disabledd="!cust.availableSysNumber" value="Assign" ng-click="assignSystem($index, cust.availableSysNumber)" />
+	</td>
+
+	<td>
+		<input type="button" class="btn btn-xs btn-primary" id="remove{{$index}}" value="Remove" ng-click="removeWaiting($index)" />
+	</td>
+	</tr>
+</table>
+</div>
+ -->
+
+ <div class="row">
+ <div class="pull-right">
+<button class="btn btn-xs btn-sm btn-primary" ng-click="cleanCustomers()">Clean Customers</button>
+</div>
+
+ <h2>Completed Customers</h2>
+ <table class="table" id="completedCustmer">
+ <thead><tr><td>Sys #</td><td>Name</td><td>Invoice</td><td>Amount</td></tr></thead>
+ <tbody>
+ 	<tr ng-repeat="cust in customers track by cust.timeStamp">
+ 	<td>{{cust.systemNumber}}</td>
+ 	<td>{{cust.customer.name}}</td>
+ 	<td>
+ 		
+<table class="table">
+						<thead><tr><th>Members</th><th>Duration</th><th>Min</th></tr></thead>
+						<tr ng-repeat="invoice in cust.invoiceDetails">
+						<td>{{invoice.mem}}</td><td>{{invoice.duration.st | date: 'h:mm a'}} - {{invoice.duration.et | date: 'h:mm a'}}</td><td>{{invoice.mins}}</td>
+						</tr>
+						</table>
+
+ 	</td>
+ 	<td>{{cust.amount}}</td>
+ 	</tr>
+ </tbody>
+ </table>
+</div>

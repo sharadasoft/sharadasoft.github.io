@@ -1,0 +1,78 @@
+<!doctype html>
+<html data-ng-app="app">
+<head>
+
+<meta charset="UTF-8">
+<meta name="description" content="Free Web Design, Free Software Development, Free Mobile App Development, Free Web Hosting, Free Training">
+<meta name="keywords" content="HTML5,CSS3,JavaScript,JQuery,Node.js,Angular.js,Bootstrap">
+<meta name="author" content="Goverdhan Koyalkar">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/styles.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+
+<link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css' />
+<link href='https://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'/>
+<link href='https://fonts.googleapis.com/css?family=Averia+Sans+Libre' rel='stylesheet' type='text/css' />
+
+<script  src="lib/jquery-2.1.4.min.js"></script>
+<script  src="lib/angular.min.js" ></script>
+<script  src="lib/ui-bootstrap-tpls-0.14.3.min.js"></script>
+<script  src="lib/bootstrap.min.js"></script>
+<script  src="lib/angular-ui-router.min.js"></script>
+<script  src="lib/underscore-min.js"></script>
+<script  src="lib/restangular.min.js"></script>
+<script  src="lib/angular-sanitize.min.js"></script>
+<script  src="lib/wSQL.js"></script>
+
+
+<script src="app.js"></script>
+<script src="wSQL.config.js"></script>
+
+<!-- //Service Files -->
+<script src="js/services/contactUsService.js"></script>
+<script src="js/services/lettersService.js"></script>
+<script src="js/services/playStationService.js"></script>
+
+<!-- //Directive Files -->
+<script src="js/directives/app-header.js"></script>
+<script src="js/directives/app-footer.js"></script>
+<script src="js/directives/medical-invoice.js"></script>
+
+<!-- //Controller Files -->
+<script src="js/controller/homeCtrl.js"></script>
+<script src="js/controller/carouselCtrl.js"></script>
+<script src="js/controller/contactFormCtrl.js"></script>
+<script src="js/controller/medicalinvoiceCtrl.js"></script>
+<script src="js/controller/hotelCtrl.js"></script>
+<script src="js/controller/olaCtrl.js"></script>
+
+<script src="js/controller/createPayslipCtrl.js"></script>
+<script src="js/controller/viewPayslipCtrl.js"></script>
+<script src="js/controller/payslipCtrl.js"></script>
+<script src="js/controller/playStationCtrl.js"></script>
+
+
+
+
+
+<!-- could easily use a custom property of the state here instead of 'name' -->
+<title ng-bind="'SSS - ' + state.current.name">SSS</title>
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body class="{{state.current.name}}">
+<header class="app-header" class="container"></header>
+<div ui-view class="container"></div>
+<div class="app-footer" class="container"></div>
+</body>
+</html>

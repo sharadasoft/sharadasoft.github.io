@@ -1,0 +1,175 @@
+<div class="m_-2298778335091832137body-wrapper m_-2298778335091832137show-invoice" ng-controller="olaCtrl" style="font-size:11px;line-height:16px;margin:0;padding:0;box-sizing:border-box;color:#333;width:650px;margin-left:auto;margin-right:auto;font-family:Open Sans,arial,sans-serif"><div class="adM">
+	</div><div class="m_-2298778335091832137header m_-2298778335091832137padded" style="padding-right:20px;padding-left:20px"><div class="adM">
+		</div><table class="m_-2298778335091832137table" style="width:100%;font-size:10px;border-spacing:0;border-collapse:collapse">
+			<tbody><tr>
+				<td style="padding:8px 0">
+					<a class="m_-2298778335091832137link" style="display:inline-block" href="http://www.olacabs.com" target="_blank"><img src="../../css/images/ola-logo.svg" class="CToWUd"></a>
+				</td>
+				<td class="m_-2298778335091832137text-right" style="text-align:right">
+					<div class="m_-2298778335091832137bill-info">
+						<div class="m_-2298778335091832137invoice-number">
+							<span>INVOICE NO.</span><span><b style="color:#000">{{travelDetails.invoiceNumber}}</b></span>
+						</div>
+						<div class="m_-2298778335091832137date">
+							<span>{{travelDetails.date}}</span>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</tbody></table>
+	</div>
+	<div class="m_-2298778335091832137body">
+		<div style="padding:12px 20px;background-color:#000;text-align:center;color:#fff;border-bottom:5px solid #d2e24b">
+			<div class="m_-2298778335091832137name" style="font-size:18px;line-height:22px">
+				<span><b><span class="il">OLA</span>&nbsp;{{customerDetails.name}}</b></span>
+			</div>
+			<div class="m_-2298778335091832137msg" style="font-size:10px;line-height:14px">Thanks for using Olacabs</div>
+		</div>
+		<div style="padding-right:25px;padding-left:20px">
+			<div style="padding-top:30px;padding-bottom:10px">
+				<table style="width:100%;border:1px solid #ddd;border-spacing:0;border-collapse:collapse">
+				<tbody><tr><td style="width:200px;padding:0"><img style="width:100%;height:200px;display:block" src="https://ci6.googleusercontent.com/proxy/JBGW61hQ-XXwAf5Fzg0VEeVBTNPcpLnY-Isnou8r-iuCllKNvsJo5cSUmZ0lyXSa2RkCRvULLUmNNPYgsUfHK9D3yg27EboWyBHXyOfQyBKTX76rOyT8B5zOl_Jh64pHrjpiENR00e-JZnkIZFIU_4VKE-zadCbnP_uyJTpRIeY1i7tYgn0nRhE6TJX9c8ENppTrkoLKH3UNzp8pA_P4ofkuGOTj_sUMiTmZR6mL9cIj_r8hI2_4BqV6kmSboPcG-X9cgQ0nkUlbnAbCXm-X85qreaPfX9UaC-M=s0-d-e1-ft#https://ola-prod.s3-ap-southeast-1.amazonaws.com/invoice/image_311d42a1-4095-900b-580c-55daf8ae48e8?AWSAccessKeyId=AKIAIAER5UEJQWL2BSKA&amp;Expires=1440427490&amp;Signature=D01CS7DgerxW2GAoTvOg516dnlY%3D" class="CToWUd"></td>
+					<td style="text-align:center;height:198px">
+					 	<div>
+					 		<div><b>TOTAL FARE</b></div>
+					 		<div style="font-size:54px;line-height:58px"><span><del>&#2352;</del>  {{totalFare | number:2}}</span></div>
+					 		<div style="font-size:10px"><b><span>TOTAL DISTANCE: </span><span>{{rate.totalDistance}} km</span></b></div>
+					 		<div style="font-size:10px"><b><span>TOTAL RIDE TIME : </span><span>{{rate.totalRideTime}}&nbsp;min</span></b></div>
+					 	</div>
+					 	<div style="padding-top:20px">
+					 		<table style="width:100%;border-spacing:0;border-collapse:collapse">
+					 			<tbody><tr>
+
+					 				<td style="text-align:center;width:50%">
+							 			<div style="text-align:center;display:inline-block"><div><span style="font-size:8px;line-height:12px"><span class="il">OLA</span> MONEY DEDUCTED</span></div>
+							 			<div><span style="font-size:14px">0</span></div></div>
+					 				</td>
+					 				<td style="text-align:center;width:50%">
+					 					<div style="text-align:center;display:inline-block"><div><span style="font-size:8px;line-height:12px">CASH PAID</span></div>
+					 					<div><span style="font-size:14px">{{totalFare | number:2}}</span></div></div>
+					 				</td>
+
+
+
+					 			</tr>
+					 		</tbody></table>
+					 	</div>
+					 </td></tr></tbody></table></div>
+			 <div>
+			 	<table style="width:100%;border-spacing:0;border-collapse:collapse">
+			 		<tbody><tr>
+			 			<td style="vertical-align:top;width:50%">
+			 				<div style="padding-right:5px">
+			 					<table style="width:100%;border-spacing:0;border-collapse:collapse;line-height:24px">
+									<tbody><tr><td colspan="2" style="padding:0">
+										<div style="text-align:center;padding:6px 0 5px 0;color:#d2e24b;background-color:#000;margin-bottom:6px;line-height:16px"><b>FARE BREAKUP</b></div>
+									</td></tr>
+									<tr>
+										<td>First 4 km: </td>
+										<td style="width:60px"><del>&#2352;</del>  {{rate.firstFourKms | number:2}}</td>
+									</tr>
+									<tr>
+										<td>Rate for {{rate.totalDistance}} km: </td>
+										<td><del>&#2352;</del>  {{rateForTotalKms | number:2}}</td>
+									</tr>
+									<tr>
+										<td>Free ride time (5 min)</td>
+										<td><del>&#2352;</del>  0.00</td>
+									</tr>
+									<tr>
+										<td>Ride time charge for {{rate.totalRideTime}} min: </td>
+										<td><del>&#2352;</del>  {{rideTimeCharge | number:2}}</td>
+									</tr>
+
+
+
+
+                                    <tr><td>Total tax</td><td><del>&#2352;</del>  {{serviceTax | number:2}}</td></tr>
+
+								</tbody></table>
+			 				</div>
+			 			</td>
+			 			<td style="vertical-align:top;width:50%">
+			 				<div style="padding-left:5px">
+			 					<table style="width:100%;border-spacing:0;border-collapse:collapse;line-height:24px">
+									<tbody><tr><td colspan="2" style="padding:0">
+										<div style="text-align:center;padding:6px 0 5px 0;color:#d2e24b; background-color:#000; margin-bottom:6px;line-height:16px"><b>TAX BREAKUP</b></div>
+									</td></tr>
+
+
+									<tr>
+										<td>Service Tax</td>
+										<td><del>&#2352;</del>  {{serviceTax | number:2}}</td>
+									</tr>
+
+
+
+									<tr>
+										<td colspan="2">(Taxes added to your total fare)</td>
+									</tr>
+								</tbody></table>
+			 				</div>
+			 			</td>
+			 		</tr>
+			 	</tbody></table>
+			</div>
+			<div>
+				<div>
+					<div style="text-align:center;padding:6px 0 5px 0;margin-bottom:5px;background-color:#ddd;margin-top:10px">
+						<b>BOOKING DETAILS</b>
+					</div>
+					<div>
+						<table style="border-spacing:0;border-collapse:collapse;line-height:24px">
+							<tbody><tr>
+								<td style="width:150px"><span>Service type</span></td>
+								<td>{{travelDetails.travelCity}} {{travelDetails.serviceType}}</td>
+							</tr>
+							<tr>
+								<td><span>Booking Date</span></td>
+								<td>{{customerDetails.bookingDate}}</td>
+							</tr>
+							<tr>
+								<td><span>Pickup Date</span></td>
+								<td>{{customerDetails.pickupDate}}</td>
+							</tr>
+							<tr>
+								<td><span>Booking Email id</span></td>
+								<td>{{customerDetails.bookingEmail}}</td>
+							</tr>
+						</tbody></table>
+					</div>
+				</div>
+				<div style="border-bottom:1px solid #ddd;margin:8px 0"></div>
+				<div class="m_-2298778335091832137olacabs-help">
+					<div style="margin:3px 0">
+						<span>Minimum bill of <del>&#2352;</del>  {{rate.firstFourKms}} for the first 4 km and <del>&#2352;</del>  {{rate.ratePerKm}}/km thereafter. Ride time at <del>&#2352;</del>  1 per min after first 5 min, includes waiting time during the trip.</span>
+					</div>
+					<div style="margin:3px 0">
+						Additional service tax is applicable on your fare. Total fare includes this additional service tax. Toll and parking charges are extra.
+					</div>
+                  <div style="margin:3px 0">
+                    <span> We levy Peak Pricing charges when the demand is high, so that we can make more cabs available to you and continue to serve you efficiently.</span>
+                  </div>
+
+					<div style="margin:3px 0">
+						<span>For further queries, please write to <a href="mailto:support@olacabs.com" target="_blank">support@olacabs.com</a></span>
+					</div>
+					<div style="margin:3px 0;font-size:10px">
+						<span> This is an electronically generated invoice and does not require signature. All terms and conditions are as given on <a href="http://www.olacabs.com" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://www.olacabs.com&amp;source=gmail&amp;ust=1512653738157000&amp;usg=AFQjCNHu0GSALJDEI-7JkYW3eh6J64yQ6w">www.olacabs.com</a>.</span>
+					</div>
+				</div>
+				<div></div>
+			</div>
+
+
+
+
+		</div>
+	</div>
+	<div style="padding:10px 20px;color:#fff;font-size:10px;text-align:center;background-color:#000">
+		<div style="color:#ccc"><span>A Wing’ Sunteck Centre, 37-40 Subhash Road, Off. Western Express Highway, Vile Parle (East), Mumbai - 400057</span></div>
+		<div style="color:#ccc"><span>Service Tax # AAJCA1389GSD001, Service Tax Category Cab Operator, PAN No. AAJCA1389G,​​ CIN:U72900MH2010PTC240894​</span></div>
+		<div style="color:#ccc"><span>Tel: <a href="tel:+91%2022%203355%203355" value="+912233553355" target="_blank">+91 22 3355 3355</a>, Fax: 022 30947974  <a href="http://www.olacabs.com" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=en&amp;q=http://www.olacabs.com&amp;source=gmail&amp;ust=1512653738157000&amp;usg=AFQjCNHu0GSALJDEI-7JkYW3eh6J64yQ6w">www.olacabs.com</a></span></div>
+		<div style="padding-top:5px"><b>©ANI Technologies Pvt. Ltd</b></div><div class="yj6qo"></div><div class="adL">
+	</div></div><div class="adL">
+</div></div>
