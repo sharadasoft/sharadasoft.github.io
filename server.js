@@ -5,7 +5,6 @@ var app = express();
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var request = require('request');
-var database = require('./db/components');
 
 var allowCrossDomain = function(req, res, next) {
 res.header('Access-Control-Allow-Origin', '*');
