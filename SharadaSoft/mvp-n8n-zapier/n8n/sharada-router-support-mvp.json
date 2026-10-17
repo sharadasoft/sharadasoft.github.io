@@ -1,0 +1,212 @@
+{
+  "name": "Sharada Soft — Router + Support L1 MVP",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sharada-inbound",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "webhook-inbound",
+      "name": "ImprovMX Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 300],
+      "webhookId": "sharada-inbound"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "mode",
+              "name": "MODE",
+              "value": "draft",
+              "type": "string"
+            },
+            {
+              "id": "from",
+              "name": "from",
+              "value": "={{ $json.from || $json.envelope?.from || $json.sender }}",
+              "type": "string"
+            },
+            {
+              "id": "to",
+              "name": "to",
+              "value": "={{ $json.to || $json.envelope?.to || $json.recipient || '' }}",
+              "type": "string"
+            },
+            {
+              "id": "subject",
+              "name": "subject",
+              "value": "={{ $json.subject || '(no subject)' }}",
+              "type": "string"
+            },
+            {
+              "id": "body",
+              "name": "body",
+              "value": "={{ $json.text || $json['body-plain'] || $json.html || '' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "normalize",
+      "name": "Normalize Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.to }}",
+                    "rightValue": "hello@",
+                    "operator": { "type": "string", "operation": "contains" }
+                  }
+                ],
+                "combinator": "or"
+              },
+              "renameOutput": true,
+              "outputKey": "router"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": false, "leftValue": "", "typeValidation": "loose" },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.to }}",
+                    "rightValue": "support@",
+                    "operator": { "type": "string", "operation": "contains" }
+                  }
+                ],
+                "combinator": "or"
+              },
+              "renameOutput": true,
+              "outputKey": "support"
+            }
+          ]
+        },
+        "options": { "fallbackOutput": "extra" }
+      },
+      "id": "role-switch",
+      "name": "Route by Inbox",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "modelId": { "__rl": true, "mode": "list", "value": "gpt-4o-mini" },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Paste contents of SharadaSoft/mvp-n8n-zapier/prompts/router-system.txt here after import."
+            },
+            {
+              "role": "user",
+              "content": "=FROM: {{ $json.from }}\nTO: {{ $json.to }}\nSUBJECT: {{ $json.subject }}\nBODY:\n{{ $json.body }}"
+            }
+          ]
+        },
+        "options": { "temperature": 0.2 }
+      },
+      "id": "llm-router",
+      "name": "LLM Router",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [740, 160],
+      "notes": "After import: paste router-system.txt into the system message. Or use HTTP Request to OpenAI Chat Completions."
+    },
+    {
+      "parameters": {
+        "modelId": { "__rl": true, "mode": "list", "value": "gpt-4o-mini" },
+        "messages": {
+          "values": [
+            {
+              "role": "system",
+              "content": "Paste contents of SharadaSoft/mvp-n8n-zapier/prompts/support-l1-system.txt here after import."
+            },
+            {
+              "role": "user",
+              "content": "=FROM: {{ $json.from }}\nTO: {{ $json.to }}\nSUBJECT: {{ $json.subject }}\nBODY:\n{{ $json.body }}"
+            }
+          ]
+        },
+        "options": { "temperature": 0.3 }
+      },
+      "id": "llm-support",
+      "name": "LLM Support L1",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [740, 400],
+      "notes": "After import: paste support-l1-system.txt into the system message."
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = items[0].json.message?.content || items[0].json.text || items[0].json.output || JSON.stringify(items[0].json);\nconst s = String(raw);\nconst start = s.indexOf('{');\nconst end = s.lastIndexOf('}');\nif (start < 0 || end < 0) throw new Error('No JSON in LLM output: ' + s.slice(0, 200));\nconst parsed = JSON.parse(s.slice(start, end + 1));\nconst prev = $('Normalize Fields').item.json;\nreturn [{ json: { ...prev, ai: parsed } }];"
+      },
+      "id": "parse-router",
+      "name": "Parse Router JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [980, 160]
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = items[0].json.message?.content || items[0].json.text || items[0].json.output || JSON.stringify(items[0].json);\nconst s = String(raw);\nconst start = s.indexOf('{');\nconst end = s.lastIndexOf('}');\nif (start < 0 || end < 0) throw new Error('No JSON in LLM output: ' + s.slice(0, 200));\nconst parsed = JSON.parse(s.slice(start, end + 1));\nconst prev = $('Normalize Fields').item.json;\nreturn [{ json: { ...prev, ai: parsed } }];"
+      },
+      "id": "parse-support",
+      "name": "Parse Support JSON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [980, 400]
+    },
+    {
+      "parameters": {
+        "content": "## Next steps after import\n1. Paste prompt files into LLM system messages.\n2. Add Gmail/SMTP credentials on Email Send / Gmail nodes (create them).\n3. Set MODE=`draft` until trusted, then `send`.\n4. Point ImprovMX hello@ and support@ webhooks at this Webhook URL.\n5. For Router: add IF on `ai.action` → Forward / Draft Reply.\n6. For Support: add IF on `ai.action` → Reply / Escalate / Draft.",
+        "height": 320,
+        "width": 380
+      },
+      "id": "sticky-notes",
+      "name": "Setup Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [1200, 80]
+    }
+  ],
+  "connections": {
+    "ImprovMX Webhook": {
+      "main": [[{ "node": "Normalize Fields", "type": "main", "index": 0 }]]
+    },
+    "Normalize Fields": {
+      "main": [[{ "node": "Route by Inbox", "type": "main", "index": 0 }]]
+    },
+    "Route by Inbox": {
+      "main": [
+        [{ "node": "LLM Router", "type": "main", "index": 0 }],
+        [{ "node": "LLM Support L1", "type": "main", "index": 0 }]
+      ]
+    },
+    "LLM Router": {
+      "main": [[{ "node": "Parse Router JSON", "type": "main", "index": 0 }]]
+    },
+    "LLM Support L1": {
+      "main": [[{ "node": "Parse Support JSON", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "description": "Sharada Soft MVP: ImprovMX webhook → Router or Support L1 LLM. Add Gmail/SMTP action nodes after parse."
+  }
+}
