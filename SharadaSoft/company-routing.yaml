@@ -1,0 +1,297 @@
+# Sharada Software Solutions — Agent Company Wiring
+# Topology: hub-and-spoke (hello@) + hierarchical escalation
+company:
+  name: Sharada Software Solutions
+  domain: sharadasoft.com
+  public_intake: hello@sharadasoft.com
+  topology: hub-and-spoke + hierarchical
+
+leadership:
+  ceo:
+    email: dayanand@sharadasoft.com
+    owns: Final decisions, VIP customers, board-level, irreversible commitments
+    escalate_to: null
+  coo:
+    email: goverdhan@sharadasoft.com
+    owns: Cross-team ops, SLA breaches, resource conflicts, company-wide coordination
+    escalate_to: dayanand@sharadasoft.com
+  chief_of_staff:
+    email: madhusudhan@sharadasoft.com
+    owns: CEO queue triage, briefings, VIP scheduling, executive follow-ups
+    escalate_to: dayanand@sharadasoft.com
+
+router:
+  email: hello@sharadasoft.com
+  owns: All unknown / general inbound; classify intent; forward once; never own resolution
+  rules:
+    - intent: [vip, executive, board, ceo]
+      route_to: madhusudhan@sharadasoft.com
+      note: Chief of Staff filters before CEO
+    - intent: [sales_demo, pricing, buy, quote, proposal]
+      route_to: soni@sharadasoft.com
+      note: BDR qualifies first
+    - intent: [qualified_deal, contract_negotiation, close]
+      route_to: darshan@sharadasoft.com
+    - intent: [pipeline, discount_approval, sales_strategy]
+      route_to: sudarshan@sharadasoft.com
+    - intent: [onboarding, churn, renewal, csm, customer_health]
+      route_to: success@sharadasoft.com
+    - intent: [help, how_to, bug_report, outage, ticket]
+      route_to: support@sharadasoft.com
+    - intent: [invoice, payment, refund, subscription]
+      route_to: billing@sharadasoft.com
+    - intent: [cashflow, books, expense, payroll_finance]
+      route_to: girija@sharadasoft.com
+    - intent: [campaign, ads, brand, press]
+      route_to: marketing@sharadasoft.com
+    - intent: [blog, copy, assets, creative]
+      route_to: content@sharadasoft.com
+    - intent: [experiment, funnel, seo, acquisition]
+      route_to: growth@sharadasoft.com
+    - intent: [feature_request, roadmap, product_feedback]
+      route_to: product@sharadasoft.com
+    - intent: [bug_deep, architecture, deploy, infra]
+      route_to: engineering@sharadasoft.com
+    - intent: [api, sdk, developer, community]
+      route_to: devrel@sharadasoft.com
+    - intent: [hiring, job, interview, people, hr, recruiting]
+      route_to: hr@sharadasoft.com
+    - intent: [nda, contract, compliance, legal]
+      route_to: legal@sharadasoft.com
+    - intent: [phishing, breach, suspicious, security]
+      route_to: security@sharadasoft.com
+      auto_reply: false
+    - intent: [access, laptop, vpn, tooling, it]
+      route_to: chanakshi@sharadasoft.com
+    - intent: [partner, affiliate, reseller, channel]
+      route_to: Sharada@sharadasoft.com
+    - intent: [research, competitor, market_intel]
+      route_to: sandhya@sharadasoft.com
+    - intent: [ops, cross_team, unclear]
+      route_to: goverdhan@sharadasoft.com
+
+roles:
+  - id: ceo
+    title: CEO / Owner
+    email: dayanand@sharadasoft.com
+    owns:
+      - Final yes/no on strategy, pricing exceptions, legal risk, VIP
+    escalate_to: null
+    sla_hours: 24
+
+  - id: coo
+    title: COO
+    email: goverdhan@sharadasoft.com
+    owns:
+      - Cross-department coordination
+      - SLA breaches and blocked work
+    escalate_to: dayanand@sharadasoft.com
+    sla_hours: 8
+
+  - id: router
+    title: Router
+    email: hello@sharadasoft.com
+    owns:
+      - Intent classification and single-hop forward
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 2
+
+  - id: chief_of_staff
+    title: Chief of Staff
+    email: madhusudhan@sharadasoft.com
+    owns:
+      - CEO inbox prioritization and briefings
+    escalate_to: dayanand@sharadasoft.com
+    sla_hours: 4
+
+  - id: vp_sales
+    title: VP Sales
+    email: sudarshan@sharadasoft.com
+    owns:
+      - Pipeline health, discounts, sales strategy
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 8
+
+  - id: bdr
+    title: BDR
+    email: soni@sharadasoft.com
+    owns:
+      - Early inbound, outbound prospecting, qualification
+    escalate_to: darshan@sharadasoft.com
+    sla_hours: 4
+
+  - id: ae
+    title: AE / Closer
+    email: darshan@sharadasoft.com
+    owns:
+      - Qualified opportunities through close
+    escalate_to: sudarshan@sharadasoft.com
+    sla_hours: 4
+
+  - id: success
+    title: Customer Success
+    email: success@sharadasoft.com
+    owns:
+      - Onboarding, adoption, renewals, health scores
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 8
+
+  - id: support_l1
+    title: Support L1
+    email: support@sharadasoft.com
+    owns:
+      - How-to, account help, known issues, first response
+    escalate_to: support-l2@sharadasoft.com
+    sla_hours: 4
+
+  - id: support_l2
+    title: Support L2
+    email: support-l2@sharadasoft.com
+    owns:
+      - Complex repros, escalated tickets, workarounds
+    escalate_to: engineering@sharadasoft.com
+    sla_hours: 8
+
+  - id: billing
+    title: Billing
+    email: billing@sharadasoft.com
+    owns:
+      - Invoices, payments, plan changes, refunds process
+    escalate_to: girija@sharadasoft.com
+    sla_hours: 8
+
+  - id: finance
+    title: Finance
+    email: girija@sharadasoft.com
+    owns:
+      - Cashflow, reporting, payment disputes, books
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 24
+
+  - id: marketing
+    title: Marketing
+    email: marketing@sharadasoft.com
+    owns:
+      - Campaigns, brand, press, demand gen requests
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 24
+
+  - id: content
+    title: Content
+    email: content@sharadasoft.com
+    owns:
+      - Writing, assets, editorial calendar
+    escalate_to: marketing@sharadasoft.com
+    sla_hours: 48
+
+  - id: growth
+    title: Growth
+    email: growth@sharadasoft.com
+    owns:
+      - Experiments, funnels, acquisition loops
+    escalate_to: marketing@sharadasoft.com
+    sla_hours: 48
+
+  - id: product
+    title: Product
+    email: product@sharadasoft.com
+    owns:
+      - Feature requests, roadmap prioritization, specs
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 48
+
+  - id: engineering
+    title: Engineering
+    email: engineering@sharadasoft.com
+    owns:
+      - Bugs, technical design, incidents, infra
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 8
+
+  - id: devrel
+    title: DevRel
+    email: devrel@sharadasoft.com
+    owns:
+      - Developer community, API docs asks, advocacy
+    escalate_to: engineering@sharadasoft.com
+    sla_hours: 48
+
+  - id: hr_recruiting
+    title: HR / People + Recruiting
+    email: hr@sharadasoft.com
+    owns:
+      - Hiring, interviews, people ops, candidates
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 24
+
+  - id: legal
+    title: Legal
+    email: legal@sharadasoft.com
+    owns:
+      - Contracts, NDAs, compliance reviews
+    escalate_to: dayanand@sharadasoft.com
+    sla_hours: 48
+    human_approve_before_send: true
+
+  - id: security
+    title: Security
+    email: security@sharadasoft.com
+    owns:
+      - Suspicious mail review, incident intake
+    escalate_to: goverdhan@sharadasoft.com
+    cc_on_escalate: dayanand@sharadasoft.com
+    auto_reply: false
+    sla_hours: 2
+
+  - id: it
+    title: IT / Admin
+    email: chanakshi@sharadasoft.com
+    owns:
+      - Access, devices, tooling, account provisioning
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 24
+
+  - id: partnerships
+    title: Partnerships
+    email: Sharada@sharadasoft.com
+    owns:
+      - Partners, affiliates, channel deals
+    escalate_to: sudarshan@sharadasoft.com
+    sla_hours: 48
+
+  - id: research
+    title: Research
+    email: sandhya@sharadasoft.com
+    owns:
+      - Market intel, competitive research briefs
+    escalate_to: goverdhan@sharadasoft.com
+    sla_hours: 72
+
+escalation_chains:
+  support: |
+    support@ → support-l2@ → engineering@ (tech) OR product@ (product gap)
+    → goverdhan@ → dayanand@
+  sales: |
+    soni@ → darshan@ → sudarshan@ → goverdhan@ → dayanand@
+  billing: |
+    billing@ → girija@ → goverdhan@ → dayanand@
+  security: |
+    security@ → goverdhan@ + dayanand@ (parallel; no auto-reply)
+  legal: |
+    legal@ → dayanand@ (human approve before external send)
+  marketing: |
+    content@|growth@ → marketing@ → goverdhan@
+  product_eng: |
+    product@|devrel@ → engineering@ → goverdhan@ → dayanand@
+  people: |
+    hr@ → goverdhan@ → dayanand@
+  partnerships: |
+    Sharada@ → sudarshan@ → goverdhan@
+
+operating_rules:
+  - Router forwards once; specialists own the thread after handoff.
+  - Never CC the whole company; escalate one level at a time.
+  - Security and Legal never auto-reply to untrusted external senders.
+  - Refunds, contracts, and pricing exceptions require human approval before send.
+  - If intent is unclear after one clarifying reply, route to COO.
+  - VIP / named accounts go Chief of Staff → CEO, not general support.

@@ -1,0 +1,17 @@
+---
+description: Sharada Software Solutions agent company — follow root AGENTS.md (portable across Claude, Codex, Gemini, Copilot, etc.)
+alwaysApply: true
+---
+
+# Sharada company agents (Cursor adapter)
+
+**Source of truth for all AIs:** repo-root `AGENTS.md` and `SharadaSoft/company-routing.yaml`.
+
+When acting as or advising any Sharada Soft inbox/role:
+
+1. Follow `AGENTS.md` (roster, router rules, escalation chains, hard rules).
+2. Prefer `SharadaSoft/company-routing.yaml` if tables conflict.
+3. If acting as a **specific role**, also load `SharadaSoft/agents/<role>/AGENTS.md` (tone, reply templates, escalate-when).
+4. Do not invent alternate emails or skip escalation levels.
+
+Thin adapters for other tools also point at `AGENTS.md`: `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`.
